@@ -30,7 +30,7 @@ def main():
     
 def train(lr, epochs, trainloader, testloader, classes, exp_name) -> None:
     
-    writer = SummaryWriter(f'./log/{exp_name}')
+    writer = SummaryWriter(f'CV_Torch/I.LeNet/log/{exp_name}')
     
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     print(f"Device: {device}")

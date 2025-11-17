@@ -1,0 +1,27 @@
+# 训练配置
+train:
+  batch_size: 32
+  num_epochs: 100
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  early_stopping_patience: 10
+  
+# 数据配置
+data:
+  dataset_path: "./data/raw"
+  image_size: [224, 224]
+  num_workers: 4
+  train_split: 0.8
+  split_seed: 42
+  
+# 模型配置
+model:
+  name: "resnet50"
+  num_classes: 102
+  pretrained: false
+  
+# 实验配置
+experiment:
+  name: "exp_001"
+  save_dir: "./experiments/exp_001"
+  log_interval: 100
