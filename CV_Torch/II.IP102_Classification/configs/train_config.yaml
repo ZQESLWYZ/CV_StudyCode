@@ -8,11 +8,12 @@ train:
   
 # 数据配置
 data:
-  dataset_path: "./data/raw"
-  image_size: [224, 224]
+  dataset_path: "CV_Torch/II.IP102_Classification/data/raw/img_class.txt"
+  size: 512
   num_workers: 4
   train_split: 0.8
   split_seed: 42
+  transform: True
   
 # 模型配置
 model:
