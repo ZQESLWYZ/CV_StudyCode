@@ -13,7 +13,7 @@ from data.transforms import get_transform
 class IP102_Classifier(Dataset):
     """ The Dataset Class of IP102 dataset """
     
-    def __init__(self, config):
+    def __init__(self, config, split="train"):
         """
         Args:
             image_dir: path of images dir
@@ -25,11 +25,41 @@ class IP102_Classifier(Dataset):
         self.img_root_dir = os.path.join(self.project_root,
                                          'II.IP102_Classification', 
                                          'data', 'raw')
-        self.imgs, self.labels = self.read_txt()
-        self.transform = get_transform(config)
 
+        # 读取所有图片路径和标签，但是根据split参数的不同返回不同的索引，实现分离训练集和测试集
+        self.all_imgs, self.all_labels = self.read_txt()
+        
+        self.split = split
+        self.split_ratio = config['data']['train_split']
+        self.split_random_seed = config['data']['split_seed']
+        
+        self.transform = get_transform(config, self.split)
+        
+        self.imgs, self.labels = self.spilt_dataset()
+
+    def spilt_dataset(self):
+        """split dataset to train and val"""
+        total_size = len(self.all_imgs)
+        train_size = int(self.split_ratio * total_size)
+        val_size = total_size - train_size
+        
+        torch.manual_seed(self.split_random_seed)
+        
+        # 生成索引并划分
+        indices = torch.randperm(total_size).tolist()
+        
+        if self.split == 'train':
+            selected_index = indices[:train_size]
+        elif self.split == 'val':
+            selected_index = indices[train_size:]
+            
+        imgs = [self.all_imgs[i] for i in selected_index]
+        labels = [self.all_labels[i] for i in selected_index]
+        
+        return imgs, labels
         
     def read_txt(self):
+        """get dataset from txt"""
         img_path_temp = []
         img_label_temp = []
         
