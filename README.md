@@ -14,14 +14,16 @@
 - **Dataset**: 用于存放项目所需的数据集。建议将大型数据集通过符号链接或引用方式放在此目录下。
 - **DataSet_Links.md**: 文档中记录了各项目所用数据集的获取方式与官方链接，方便复现实验。
 
+# References
+[1] GitHub：[codecat0/CV](https://github.com/codecat0/CV/tree/main)
+
 ## Todo Lists
 
 ### Image Classification 
 
 #### CNN-base
-- [ ] AlexNet
-- [ ] VGGNet
-- [ ] NINNet
+- [X] AlexNet
+- [X] VGGNet
 
 - [ ] ResNet
 - [ ] ResNeXt
